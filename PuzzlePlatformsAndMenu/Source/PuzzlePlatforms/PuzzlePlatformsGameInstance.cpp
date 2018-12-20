@@ -8,12 +8,13 @@
 #include "Blueprint/UserWidget.h"
 
 #include "PlatformTrigger.h"
+#include "MenuSystem/MainMenu.h"
+#include "Kismet/KismetSystemLibrary.h"
 
 UPuzzlePlatformsGameInstance::UPuzzlePlatformsGameInstance(const FObjectInitializer &ObjectInitializer)
 {
 	ConstructorHelpers::FClassFinder<UUserWidget> MenuBPClass(TEXT("/Game/MenuSystem/WBP_MainMenu"));
 	if(!ensure(MenuBPClass.Class != nullptr)) { return; }
-
 	MenuClass = MenuBPClass.Class;
 }
 
@@ -26,21 +27,12 @@ void UPuzzlePlatformsGameInstance::LoadMenu()
 {
 	if(!ensure(MenuClass != nullptr)) { return; }
 	
-	UUserWidget* Menu = CreateWidget<UUserWidget>(this, MenuClass);
+	Menu = CreateWidget<UMainMenu>(this, MenuClass);
 	if(!ensure(Menu != nullptr)) { return; }
 
-	Menu->AddToViewport();
+	Menu->Setup();
 
-	APlayerController* PlayerController = GetFirstLocalPlayerController();
-	if(!ensure(PlayerController != nullptr)) { return; }
-
-	FInputModeUIOnly InputModeData;
-	InputModeData.SetWidgetToFocus(Menu->TakeWidget());
-	InputModeData.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
-
-	PlayerController->SetInputMode(InputModeData);
-
-	PlayerController->bShowMouseCursor = true;
+	Menu->SetMenuInterface(this);
 }
 
 void UPuzzlePlatformsGameInstance::Host()
@@ -48,7 +40,7 @@ void UPuzzlePlatformsGameInstance::Host()
 	UEngine* Engine = GetEngine();
 	if(!ensure(Engine != nullptr)) { return; }
 
-	Engine->AddOnScreenDebugMessage(0, 2, FColor::Green, TEXT("Hosting"));
+	Engine->AddOnScreenDebugMessage(0, 5, FColor::Green, TEXT("Hosting"));
 
 	UWorld* World = GetWorld();
 	if(!ensure(World != nullptr)) { return; }
@@ -67,4 +59,18 @@ void UPuzzlePlatformsGameInstance::Join(const FString& Address)
 	if(!ensure(PlayerController != nullptr)) { return; }
 
 	PlayerController->ClientTravel(Address, ETravelType::TRAVEL_Absolute);
+}
+
+void UPuzzlePlatformsGameInstance::Quit()
+{
+	// Not in use: Causes crashes
+	UEngine* Engine = GetEngine();
+	if(!ensure(Engine != nullptr)) { return; }
+
+	Engine->AddOnScreenDebugMessage(0, 5, FColor::Green, TEXT("Quitting"));
+
+	APlayerController* PlayerController = GetFirstLocalPlayerController();
+	if(!ensure(PlayerController != nullptr)) { return; }
+
+	Quit();
 }

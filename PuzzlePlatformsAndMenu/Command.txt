@@ -7,11 +7,20 @@
 
 ########
 
+
+
 & "C:\Program Files (x86)\Epic Games\UE_4.21\Engine\Binaries\Win64\UE4Editor.exe" "C:\Users\owner\Documents\repos\Unreal Projects\PuzzlePlatforms\PuzzlePlatforms.uproject" /Game/Dynamic/Levels/Lobby?Listen -server -log
 
-& "C:\Program Files (x86)\Epic Games\UE_4.21\Engine\Binaries\Win64\UE4Editor.exe" "C:\Users\owner\Documents\repos\Unreal Projects\PuzzlePlatforms\PuzzlePlatforms.uproject" -game -log
+
+
+& "C:\Program Files (x86)\Epic Games\UE_4.21\Engine\Binaries\Win64\UE4Editor.exe" "C:\Users\owner\Documents\repos\Unreal Projects\MenuSystem\PuzzlePlatformsAndMenu\PuzzlePlatforms.uproject" -game -log
+
+
 
 & "C:\Program Files (x86)\Epic Games\UE_4.21\Engine\Binaries\Win64\UE4Editor.exe" "C:\Users\owner\Documents\repos\Unreal Projects\PuzzlePlatforms\PuzzlePlatforms.uproject" 10.0.0.6 -game -log
+
+
+
 
 # Get the filepath to UE_4.21\Engine\Binaries\Win64\UE4Editor.exe, which should be a very similar path file to mine, possibly even identical. Put it in quotes exactly as I have done. I'll help you out with this. #
 # Get the filepath to the .uproject that I will send you. This will depend on where you put it. #
