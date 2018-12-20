@@ -25,10 +25,10 @@ public:
 	void LoadMenu();
 
 	UFUNCTION(Exec)
-	void Host();
+	void Host() override;
 
 	UFUNCTION(Exec)
-	void Join(const FString& Address);
+	void Join(const FString& Address) override;
 
 	UFUNCTION(Exec)
 	void Quit();

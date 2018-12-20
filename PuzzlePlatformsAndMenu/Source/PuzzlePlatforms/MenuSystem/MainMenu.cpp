@@ -106,13 +106,8 @@ void UMainMenu::OpenMainMenu()
 
 void UMainMenu::QuitGame()
 {
-	// TODO Remove log and uncomment code, but only for the build version, not for development, and only one implementation
-	// FGenericPlatformMisc::RequestExit(false);
-	UE_LOG(LogTemp, Warning, TEXT("Attempted to quit."));
+	GetWorld()->GetFirstPlayerController()->ConsoleCommand("quit");
+
+	FGenericPlatformMisc::RequestExit(false);
 	
-	/*if(MenuInterface != nullptr)
-	{
-		// Causes a crash
-		MenuInterface->Quit();
-	}*/
 }
