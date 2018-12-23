@@ -16,6 +16,8 @@ public:
 	// Sets default values for this component's properties
 	UInGameOverlayComponent(const FObjectInitializer &ObjectInitializer);
 
+	bool bMenuActive;
+
 protected:
 	// Called when the game starts
 	virtual void BeginPlay() override;
@@ -27,7 +29,6 @@ private:
 	UFUNCTION()
 	void OpenMenu();
 
-	bool bMenuActive;
 
 	TSubclassOf<class UUserWidget> GameMenuClass;
 

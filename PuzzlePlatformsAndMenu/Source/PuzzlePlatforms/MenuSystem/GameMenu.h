@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
 #include "MenuInterface.h"
+#include "InGameOverlayComponent.h"
 #include "GameMenu.generated.h"
 
 /**
@@ -17,13 +18,13 @@ class PUZZLEPLATFORMS_API UGameMenu : public UUserWidget
 
 public:
 
-	// void SetMenuInterface(IMenuInterface * MenuInterface);
-
-	void Setup();
+	UInGameOverlayComponent* AddOverlayComponent(UInGameOverlayComponent* OverlayComponent);
 
 protected:
 
 	virtual bool Initialize() override;
+
+	APlayerController* PlayerController;
 
 private:
 
@@ -31,8 +32,7 @@ private:
 	class UButton* CancelButton;
 
 	UPROPERTY(meta = (BindWidget))
-	class UButton* PushToMainMenuButton;
-
+	UButton* PushToMainMenuButton;
 
 	UFUNCTION()
 	void ReturnToGame();
@@ -40,5 +40,8 @@ private:
 	UFUNCTION()
 	void ReturnToMainMenu();
 
-	// IMenuInterface* MenuInterface;
+	void ReturnToGameFromCorrectInstance(UInGameOverlayComponent* OverlayComponent);
+
+	UPROPERTY()
+	TArray<UInGameOverlayComponent*> OverlayComponents;
 };

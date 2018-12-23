@@ -3,6 +3,8 @@
 #include "GameMenu.h"
 #include "Kismet/GameplayStatics.h"
 #include "Components/Button.h"
+#include "InGameOverlayComponent.h"
+#include "GameFramework/Character.h"
 
 bool UGameMenu::Initialize()
 {
@@ -18,26 +20,17 @@ bool UGameMenu::Initialize()
 	return true;
 }
 
-//
-//void UGameMenu::SetMenuInterface(IMenuInterface * MenuInterface)
-//{
-//	this->MenuInterface = MenuInterface;
-//}
+UInGameOverlayComponent* UGameMenu::AddOverlayComponent(UInGameOverlayComponent* OverlayComponent)
+{
+	OverlayComponents.Add(OverlayComponent);
+	UInGameOverlayComponent* ThisComponent = OverlayComponents.FindLast;
+	UE_LOG(LogTemp, Warning, TEXT("Added overlay component: %s"), *ThisComponent->GetName());
+	return ThisComponent;
+}
 
 void UGameMenu::ReturnToGame()
 {
-	this->RemoveFromViewport();
-
-	UWorld* World = GetWorld();
-	if(!ensure(World != nullptr)) { return; }
-
-	APlayerController* PlayerController = World->GetFirstPlayerController();
-	if(!ensure(PlayerController != nullptr)) { return; }
-
-	FInputModeGameOnly InputModeData;
-
-	PlayerController->SetInputMode(InputModeData);
-	PlayerController->bShowMouseCursor = false;
+	// Implement ReturnToGameFromCorrectInstance to work with dynamic delegate.
 }
 
 void UGameMenu::ReturnToMainMenu()
@@ -46,5 +39,29 @@ void UGameMenu::ReturnToMainMenu()
 
 	UWorld* World = GetWorld();
 	if(!ensure(World != nullptr)) { return; }
-	UGameplayStatics::OpenLevel(World, (FName("/Game/MenuSystem/MainMenu")));
+	PlayerController->ClientTravel("/Game/MenuSystem/MainMenu", ETravelType::TRAVEL_Absolute);
+}
+
+void UGameMenu::ReturnToGameFromCorrectInstance(UInGameOverlayComponent* OverlayComponent)
+{
+	this->RemoveFromViewport();
+
+	UWorld* World = GetWorld();
+	if(!ensure(World != nullptr)) { return; }
+
+	PlayerController = World->GetFirstPlayerController();
+	if(!ensure(PlayerController != nullptr)) { return; }
+/*
+	FInputModeGameOnly GameSetup;
+
+	PlayerController->SetInputMode(GameSetup);
+	PlayerController->GetPawn()->EnableInput(PlayerController);
+	PlayerController->bShowMouseCursor = false;*/
+
+	// Get the name of the parent of the Overlay component.
+	// Get the actor that called this function
+	// Confirm tags
+	// Run from that overlay component
+
+	OverlayComponent->bMenuActive = false;
 }
