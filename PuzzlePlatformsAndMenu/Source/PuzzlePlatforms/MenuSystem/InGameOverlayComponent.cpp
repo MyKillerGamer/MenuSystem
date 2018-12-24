@@ -18,8 +18,8 @@ UInGameOverlayComponent::UInGameOverlayComponent(const FObjectInitializer &Objec
 
 
 	// Gives Unique ID Tag to this component
-	if(!ensure(GetOwner() != nullptr)) { return; }
-	this->ComponentTags.Add(FName(*FString::Printf(TEXT("Parent: %s"), *GetOwner()->GetName())));
+	// if(!ensure(GetOwner() != nullptr)) { return; }
+	// this->ComponentTags.Add(FName(*FString::Printf(TEXT("Parent: %s"), *GetOwner()->GetName())));
 
 	// Tag:	(FName(*FString::Printf(TEXT("Parent: %s"), *GetOwner()->GetName())))
 
@@ -45,7 +45,7 @@ void UInGameOverlayComponent::BeginPlay()
 	GameMenu = CreateWidget<UGameMenu>(OwnerController, GameMenuClass);
 	bMenuActive = false;
 
-	UInGameOverlayComponent* InGameOverlayComponent = GameMenu->AddOverlayComponent(this); // TODO Change this into a TArray addition, otherwise the host crashes when trying to access the gamemenu after someone has joined.
+	// UInGameOverlayComponent* InGameOverlayComponent = GameMenu->AddOverlayComponent(this); // TODO Change this into a TArray addition, otherwise the host crashes when trying to access the gamemenu after someone has joined.
 }
 
 void UInGameOverlayComponent::OpenMenu()

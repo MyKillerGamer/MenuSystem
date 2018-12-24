@@ -18,7 +18,7 @@ class PUZZLEPLATFORMS_API UGameMenu : public UUserWidget
 
 public:
 
-	UInGameOverlayComponent* AddOverlayComponent(UInGameOverlayComponent* OverlayComponent);
+	/*UInGameOverlayComponent* AddOverlayComponent(UInGameOverlayComponent* OverlayComponent);*/
 
 protected:
 
@@ -28,11 +28,11 @@ protected:
 
 private:
 
-	UPROPERTY(meta = (BindWidget))
-	class UButton* CancelButton;
+	/*UPROPERTY(meta = (BindWidget))
+	class UButton* CancelButton;*/
 
 	UPROPERTY(meta = (BindWidget))
-	UButton* PushToMainMenuButton;
+	class UButton* PushToMainMenuButton;
 
 	UFUNCTION()
 	void ReturnToGame();
@@ -40,7 +40,6 @@ private:
 	UFUNCTION()
 	void ReturnToMainMenu();
 
-	void ReturnToGameFromCorrectInstance(UInGameOverlayComponent* OverlayComponent);
 
 	UPROPERTY()
 	TArray<UInGameOverlayComponent*> OverlayComponents;
